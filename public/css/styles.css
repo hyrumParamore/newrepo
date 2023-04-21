@@ -9,7 +9,6 @@ body {
   width: 375px;
   text-align: center;
   margin: 0 auto;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #top-header, a {
@@ -87,16 +86,15 @@ nav a:hover {
   position: relative;
   padding: 5px;
   /* background-color: grey; */
-  left: 10px;
 }
 
 
 .hero-text {
   color: #07b2d3;
   position: absolute;
-  left: 10px;
+  bottom: 70px;
   text-align: left;
-  font-size: medium;
+  font-size:small;
   font-weight: bold;
   /* background-color: white; */
   
@@ -104,8 +102,8 @@ nav a:hover {
   
 }
 .container .hero-text  {
-  background: rgba(255, 255, 255, 0.6)
-  
+  background: rgba(255, 255, 255, 0.6);
+  height: fit-content;
   /* padding: ; */
 }
 
@@ -169,7 +167,7 @@ nav a:hover {
 
 
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 750px) {
   html {
     background-image: url(https://github.com/blainerobertson/cse340starter/blob/main/public/images/site/checkerboard.jpg?raw=true);
     background-size: 45%;
@@ -199,6 +197,7 @@ nav a:hover {
   .hero-text {
     left: 10%;
     top: 20px;
+    font-size: medium;
 
   }
 
