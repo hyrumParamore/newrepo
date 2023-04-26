@@ -204,7 +204,7 @@ nav a:hover {
     left: 15%;
     top: 30%;
     font-size: larger;
-    scale: 1.5;
+    transform: scale(1.5);
     /* width: 400px; */
     /* height: 400px; */
     
