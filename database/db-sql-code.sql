@@ -1,5 +1,5 @@
 CREATE TYPE public.account_type AS ENUM
-    ('Client', 'Employee', '<Admin');
+    ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
     OWNER TO cse340;
@@ -242,3 +242,9 @@ VALUES   (
     'White',
     5
   );
+
+
+-- (6) Updating the inventory images and thumbnails.
+UPDATE public.inventory
+	SET inv_image = REPLACE(inv_image, '/images', '/images/vehicles'), 
+		inv_thumbnail = REPLACE(inv_image, '/images', '/images/vehicles');
