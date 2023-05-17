@@ -6,7 +6,7 @@
 }
 
 body {
-  width: 375px;
+  width: 400px;
   text-align: center;
   margin: 0 auto;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -15,43 +15,42 @@ body {
 #top-header, a {
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
   color: #242332;
   text-decoration: none;
   padding-bottom: 15px;
   padding-top: 15px;
-
 }
+
 .site-name a {
   
   float: left;
   font-size: xx-large;
   font-weight: 700;
-
 }
 
 #tools {
   float: right;
-
 }
 
-nav {
+/* NAVBAR */
+nav ul {
   width: 100%;
   background-color: #242332;
-  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding-left: 0px;
 }
+
 nav a {
-  float: left;
+  width: 100%;
   padding: 12px;
   color: white;
   text-decoration: none;
-  width: 20%;
-  text-align: center;
+  justify-content: center;
 }
-
-nav {
-  display: flex;
-  flex-direction:row;
+nav li {
+  width: 100%;
 }
 
 
@@ -151,6 +150,7 @@ nav a:hover {
   height: auto;
   /* width: 100%; */
   display: grid;
+  /* gap: 10px; */
   grid-template-columns: auto auto;
   grid-template-rows: 1fr 1fr;
   align-content: space-between;
@@ -190,7 +190,7 @@ nav a:hover {
 }
 
 
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 900px) {
   html {
     background-image: url(https://github.com/blainerobertson/cse340starter/blob/main/public/images/site/checkerboard.jpg?raw=true);
     background-size: 40%;
@@ -199,6 +199,7 @@ nav a:hover {
 
   body {
     width: 50%;
+    min-width: 400px;
     background-color: white;
     padding: 30px;
     border-radius: 12px;
@@ -209,14 +210,9 @@ nav a:hover {
     font-size: 18px;
   }
   
-  nav a {
-    justify-content: space-evenly;
-    
+  nav ul {
+    width: 100%;
   }
-  /* nav {
-    max-width: 90%;
-    margin: 0 auto;
-  } */
   
   #hero-image {
     width: 60%;
@@ -232,8 +228,7 @@ nav a:hover {
     margin-bottom: 20px;
   }
   
-
-
+  
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -252,13 +247,6 @@ nav a:hover {
     height: 100px;
     width: 150px;    
   }
-
-  
-
-
-
-
-
 
 
 }
