@@ -174,6 +174,59 @@ nav a:hover {
   border: 1px solid grey;
 }
 
+/* INVENTORY DISPLAY */
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  gap: 15px;
+  list-style: none;
+  padding-left: 0;
+  /* margin: 0 auto; */
+  margin: 15px;
+  justify-content: space-evenly;
+  
+  
+}
+
+#inv-display li {
+  border: 2px solid black;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  
+}
+
+
+
+#inv-display img {
+  width: 100%;
+}
+
+.namePrice h2 a {
+  justify-content: center;
+
+}
+
+
+hr {
+  border: 5px solid #242332;
+  width: 100%;
+}
+
+.namePrice {
+  font-size: .8em;
+  /* text-align: center; */
+  /* padding-top: 10px; */
+  /* position: relative; */
+}
+
+
+
 
 
 @media only screen and (max-width: 1200px) {
@@ -249,4 +302,23 @@ nav a:hover {
   }
 
 
+
+  /* INVENTORY DISPLAY */
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  
+  
 }
+
+
+
+
+
+
+
+
+
+}
+

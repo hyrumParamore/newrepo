@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -41,7 +42,8 @@ Util.buildClassificationGrid = async function(data){
         grid += '<div class="namePrice">'
         grid += '<hr />'
         grid += '<h2>'
-        grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
+        // I added a class here to make the CSS easier.
+        grid += '<a class="vehicle-image" href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
         grid += '</h2>'
@@ -56,6 +58,16 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+  Util.buildVehicleHtml = async function(vehicle){
+    let html = '';
+    html += '<h1>' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
+    return html;
+  }
+  
+
+  
+
 
  /* ****************************************
  * Middleware For Handling Errors
