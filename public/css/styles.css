@@ -174,22 +174,24 @@ nav a:hover {
   border: 1px solid grey;
 }
 
+
+
 /* INVENTORY DISPLAY */
 #inv-display {
   display: grid;
   grid-template-columns: 1fr 1fr ;
-  /* grid-template-rows: 1fr 1fr 1fr; */
+  grid-template-rows: 1fr  ;
   gap: 15px;
   list-style: none;
   padding-left: 0;
-  /* margin: 0 auto; */
   margin: 15px;
   justify-content: space-evenly;
   
   
+  
 }
 
-#inv-display li {
+.inv-card {
   border: 2px solid black;
   margin: 0 auto;
   display: grid;
@@ -201,7 +203,11 @@ nav a:hover {
   
 }
 
-
+/* .inv-container{
+  background-color: red;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
 
 #inv-display img {
   width: 100%;
@@ -220,19 +226,38 @@ hr {
 
 .namePrice {
   font-size: .8em;
-  /* text-align: center; */
-  /* padding-top: 10px; */
-  /* position: relative; */
 }
 
 
+/* VEHICLE VIEW */
+.vehicle-content {
+  padding: 20px 0px 50px 0px;
 
+}
 
+.vehicle-content img {
+  padding: 10px;
+  height: auto;
+  width: 100%;
+
+}
+
+.vehicle-details {
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+/* FOOTER DETAILS */
+.error-link {
+  justify-content: center;
+  text-decoration: underline;
+  color: #0000EE;
+}
 
 @media only screen and (max-width: 1200px) {
   
   div .content {
-    max-width: 1200px;
+    max-width: 1450px;
     display: flex;
     flex-wrap: wrap;
   }
@@ -251,7 +276,7 @@ hr {
   }
 
   body {
-    width: 50%;
+    width: 70%;
     min-width: 400px;
     background-color: white;
     padding: 30px;
@@ -295,6 +320,9 @@ hr {
     text-align: left;
     padding-top: 50px;
   }
+  .error-link {
+    justify-content: left;
+  }
 
   .upgrade-cards-container div img {
     height: 100px;
@@ -304,18 +332,30 @@ hr {
 
 
   /* INVENTORY DISPLAY */
-#inv-display {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* grid-template-rows: 1fr 1fr 1fr; */
-  
-  
-}
+  #inv-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;  
+    
+  }
 
+  .vehicle-content {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .vehicle-content img {
+    width: 100%;
+    /* padding-top: 20px; */
+    
+  }
 
-
-
-
+  .vehicle-details {
+    font-size: 1.0em;
+  }
+  .vehicle-details span {
+    font-size: 1.15em;
+    background-color: #06bfe4c1;
+    padding: 8px;
+  }
 
 
 

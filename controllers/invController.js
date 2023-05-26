@@ -11,30 +11,44 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
-  // console.log("build classification");
   const className = data[0].classification_name
   res.render("./inventory/classification", {
-    title: className + " vehicles",
+    title: className + " Vehicles",
     nav,
     grid,
   })
 }
 
-
-
-
-invCont.buildByVehicleId = async function (req, res, next) {
-  const id = req.params.classificationId
-  const vehicle_data = await vehicleModel.getInventoryById(id)
-  const html = await utilities.buildVehicleHtml(vehicle_data )
+/* ***************************
+ *  Build vehicle details by vehicle view
+ * ************************** */
+invCont.BuildByVehicleId = async function (req, res, next) {
+  const classification_id = req.params.classificationId
+  const data = await invModel.getVehicleId(classification_id)
+  const grid = await utilities.buildVehicleHtml(data)
   let nav = await utilities.getNav()
-  console.log("buildByVehicleId");
-  const className = vehicle_data.classification_name
   res.render("./inventory/vehicledetails", {
-    title: className + " vehicle",
+    title: data.inv_year + ' ' + data.inv_make + ' ' + data.inv_model,
     nav,
-    html,
+    grid,
   })
 }
+
+/* ***************************
+ *  Error Link Controller for the Error view
+ * ************************** */
+// invCont.BuildError = async function (req, res, next) {
+//   const classification_id = req.params.classificationId
+//   // const data = await invModel.getVehicleId(classification_id)
+//   const grid = await utilities.buildVehicleHtml(data)
+//   let nav = await utilities.getNav()
+//   res.render("./inventory/vehicledetails", {
+//     title: "Error",
+//     nav,
+//     grid,
+//   })
+// }
+
+
 
 module.exports = invCont
