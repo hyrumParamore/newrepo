@@ -25,14 +25,10 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(require("./routes/static"))
 
-
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", utilities.handleErrors(require("./routes/inventoryRoute")))
-
-// Vehicle routes - Assignment 3
-app.use("/inv", require("./routes/vehicleRoute"))
 
 // Error Route (For testing and Assignment 3)
 app.get("/error", utilities.handleErrors(baseController.buildError))

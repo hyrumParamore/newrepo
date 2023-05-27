@@ -34,7 +34,6 @@ Util.buildClassificationGrid = async function(data){
       grid = '<div class="inv-container" id="inv-display">'
         data.forEach(vehicle => { 
           
-            
               grid +='<div class="inv-card">'
 
               grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
@@ -55,7 +54,6 @@ Util.buildClassificationGrid = async function(data){
               grid += '</div>'
             grid += '</div>'
             
-          
         })
       grid += '</div>'
     } else { 

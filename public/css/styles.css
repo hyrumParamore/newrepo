@@ -227,6 +227,9 @@ hr {
 .namePrice {
   font-size: .8em;
 }
+.namePrice span {
+  font-size: 1.4em
+}
 
 
 /* VEHICLE VIEW */

@@ -27,28 +27,12 @@ invCont.BuildByVehicleId = async function (req, res, next) {
   const data = await invModel.getVehicleId(classification_id)
   const grid = await utilities.buildVehicleHtml(data)
   let nav = await utilities.getNav()
-  res.render("./inventory/vehicledetails", {
+  res.render("./inventory/inventory", {
     title: data.inv_year + ' ' + data.inv_make + ' ' + data.inv_model,
     nav,
     grid,
   })
 }
-
-/* ***************************
- *  Error Link Controller for the Error view
- * ************************** */
-// invCont.BuildError = async function (req, res, next) {
-//   const classification_id = req.params.classificationId
-//   // const data = await invModel.getVehicleId(classification_id)
-//   const grid = await utilities.buildVehicleHtml(data)
-//   let nav = await utilities.getNav()
-//   res.render("./inventory/vehicledetails", {
-//     title: "Error",
-//     nav,
-//     grid,
-//   })
-// }
-
 
 
 module.exports = invCont
