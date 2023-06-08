@@ -26,15 +26,51 @@ async function getInventoryByClassificationId(classification_id) {
 /* ***************************
  *  Get all data for a specific vehicle by vehicle ID
  * ************************** */
-async function getVehicleId(classification_id) {
+async function getVehicleId(vehicle_id) {
   const query = "SELECT * FROM public.inventory WHERE inv_id = $1";
-  const data = await pool.query(query, [classification_id]);
+  const data = await pool.query(query, [vehicle_id]);
   // console.log(data.rows) // This was to see what data I can use
   return data.rows[0];
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleId};
+/* ***************************
+ *  Insert new classification into the database
+ *  Unit 4 Assignment
+ * ************************** */
+async function AddClassification(add_classification){
+  console.log(add_classification);
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
+    return await pool.query(sql, [add_classification]);
+  } catch (error) {
+    return error.message;
+  }
+}
+
+
+/* ***************************
+ *  Check if the classification name is already in the database
+ *  Unit 4 Assignment
+ * ************************** */
+async function CheckExistingClassification(add_classification){
+  try {
+    const sql = "SELECT * FROM public.classification WHERE classification_name = $1"
+    const classification = await pool.query(sql, [add_classification])
+    return classification.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+
+module.exports = {
+  getClassifications, 
+  getInventoryByClassificationId, 
+  getVehicleId, 
+  AddClassification, 
+  CheckExistingClassification
+};
 
 
 

@@ -5,12 +5,42 @@
 /* ***********************
  * Require Statements
  *************************/
+const session = require("express-session")
+const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const utilities = require("./utilities/")
+const bodyParser = require("body-parser")
+
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))  
+
 
 /* ***********************
  * View Engine and Templates
@@ -20,6 +50,7 @@ app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
 
+
 /* ***********************
  * Routes
  *************************/
@@ -27,13 +58,18 @@ app.use(require("./routes/static"))
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
-// Inventory routes
+
+// Inventory routes - Unit 3 
 app.use("/inv", utilities.handleErrors(require("./routes/inventoryRoute")))
 
-// Error Route (For testing and Assignment 3)
-app.get("/error", utilities.handleErrors(baseController.buildError))
+// Account routes - Unit 4 Activity
+app.use("/account", require("./routes/accountRoute"))
 
-// File Not Found Route - must be last route in list
+// Error Route (For testing and Assignment 3)
+// app.get("/error", utilities.handleErrors(baseController.buildError))
+
+// File Not Found Route 
+// Must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
