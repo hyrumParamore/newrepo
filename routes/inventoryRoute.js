@@ -36,8 +36,27 @@ router.post(
     "/add-classification",
     regValidate.classificationRules(),
     regValidate.checkClassificationData,
-    utilities.handleErrors(invController.AddClassification)
-  )
+    utilities.handleErrors(invController.AddNewClassification)
+)
+
+
+/* ***********************
+ * Unit 4 Deliver Add-Inventory View
+ * Assignment 4
+ *************************/
+router.get("/add-inventory", (invController.BuildAddInventory))
+
+/* ***********************
+ * Unit 4 Add the new Inventory
+ * Assignment 4
+ * Process the add inventory data
+ *************************/
+router.post(
+  "/add-inventory",
+  regValidate.inventoryRules(),
+  regValidate.checkInventoryData,   // I don't think I need this for this route.
+  utilities.handleErrors(invController.AddNewInventory)  // This builds the addInventory function to then process all the data.
+)
 
 
 

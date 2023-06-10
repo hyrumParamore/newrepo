@@ -282,6 +282,7 @@ hr {
 .form-box div {
   display: flex;
   flex-direction: column;
+  padding-top: 5px;
 }
 .fname {
   font-size: 1.2em;
@@ -311,6 +312,7 @@ form input {
   margin-top: 15px;
   padding: 5px 20px 5px 20px;
   border: none;
+  font-size: 1rem;
   transition: .15s;
 }
 .form-btn:hover {
@@ -345,15 +347,85 @@ input:required:invalid, input:focus:invalid {
   background-color: rgb(245, 205, 205);
   
 }
+textarea:required:invalid, textarea:focus:invalid {
+  /* Invalid input */
+  border: 2px solid red;
+  background-color: rgb(245, 205, 205);
+  
+}
 
 /* Use this to change the color of what the input looks like. */
 input:required:valid {
   border: 2px solid green;
-  background-color: rgb(184, 247, 184);
+  background-color: rgb(210, 244, 210);
+}
+textarea:required:valid {
+  border: 2px solid green;
+  background-color: rgb(210, 244, 210);
+}
+
+/* *********************
+* ADD INVENTORY FORM BOX
+************************ */
+textarea {
+  resize: vertical;
+  min-height: 3em;
+  max-height: 500px;
+  font-size: 1.15em;
+  
+}
+.inv-label label {
+  font-size: 1.2em;
+}
+
+.form-box select {
+  background-color: white;
+  margin-top: 15px;
+  padding: 5px 20px 5px 5px;
+  border: none;
+  font-size: 1rem;
+  transition: .15s;
+}
+.form-box select:hover{
+background-color: #242332;
+color: white;
+transition: .15s;
+}
+
+/* *********************
+* ADD MANAGEMENT FORM BOX
+************************ */
+.management {
+  display: grid;
+  gap: 14px;
+  background-color: #07b2d3;
+  text-align: center;
+  padding: 40px;
+  margin: 8%;
+  max-width: 400px;
+}
+.management a {
+  background-color: white;
+  padding: 5px;
+  justify-content: center;
+  transition: .15s;
+}
+.management a:hover {
+  background-color: #242332;
+  color: white;
+  transition: .15s;
 }
 
 
 
+/* ******************************
+* Removing the number arrows on the number inputs
+********************************* */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 
 @media only screen and (max-width: 1200px) {
@@ -462,6 +534,9 @@ input:required:valid {
 
   /* FORM BOX */
   .form-box {
+    margin: 40px auto;
+  }
+  .management {
     margin: 40px auto;
   }
 

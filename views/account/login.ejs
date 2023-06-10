@@ -22,15 +22,15 @@
     <form action="/account/login" method="post">
         <div class="email">
             <label for="login_email">Email: </label>
-            <input name="account_email" type="email" placeholder="youremail@email.com" 
-            required value="asd@fakemail.com"
+            <input id="login_email" name="account_email" type="email" placeholder="youremail@email.com" 
+            required value="<%= locals.account_email %>"
             > 
         </div>
 
         <div class="password">
             <label for="login_password">Password: </label>
-            <input name="account_password" type="password" placeholder="Password" id="pass" 
-            required value="asdasdasdasd2D!"
+            <input id="login_password" name="account_password" type="password" placeholder="Password" 
+            required
             > 
             
         </div>
