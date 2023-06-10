@@ -15,6 +15,7 @@ validate.classificationRules = () => {
       body("add_classification")
         .trim()
         .isLength({ min: 4 })
+        .matches(/^[^\s]+$/, "g")
         .withMessage("Please enter a valid classification name")
         .custom(async (add_classification) => {
             const classificationExists = await invModel.checkExistingClassification(add_classification)
@@ -34,12 +35,12 @@ validate.inventoryRules = () => {
     //
     body("inv_make")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle make."),
     // 
     body("inv_model")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle model."),
     // 
     body("inv_year")
@@ -55,12 +56,12 @@ validate.inventoryRules = () => {
     // 
     body("inv_image")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle image."),
     // 
     body("inv_thumbnail")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3 })
       .withMessage("Please enter a valid vehicle thumbnail."),
     // 
     body("inv_price")
@@ -103,7 +104,7 @@ validate.checkClassificationData = async (req, res, next) => {
 
 
 /* ******************************
- * Check data and return errors or continue to add new classification
+ * Check data and return errors or continue to add new inventory
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
   const {

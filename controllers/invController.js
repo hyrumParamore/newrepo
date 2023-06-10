@@ -147,8 +147,7 @@ invCont.AddNewInventory = async function (req, res, next) {
   if (invResult) {
     req.flash(
       "notice",
-      `Congratulations, you\'ve added a new vehicle to the inventory!\n
-      classification_id: ${classification_id}`
+      `Congratulations, you\'ve added ${inv_make} ${inv_model} to the inventory!\n`
     )
     res.status(201).render("./inventory/management", {
       title: "Vehicle Management",
@@ -156,7 +155,7 @@ invCont.AddNewInventory = async function (req, res, next) {
       errors: null,
     })
   } else {
-    req.flash("notice", "Sorry, there was an issue adding a to inventory. Please try again.")
+    req.flash("notice", "Sorry, there was an issue adding a new vehicle. Please try again.")
     res.status(501).render("./inventory/add-inventory", {
       title: "Add Inventory",
       nav,

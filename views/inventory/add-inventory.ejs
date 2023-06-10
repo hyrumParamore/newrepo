@@ -26,7 +26,9 @@
 <!-- Add-Inventory Form -->
 <div class="form-box">
     <form action="/inv/add-inventory" method="post">
-
+        <div>
+            <h3>All fields are required.</h3>
+        </div>
         <div class="inv-label">
             <label for="select_classification">Classification: </label>
             <%- selectList %>
@@ -36,28 +38,31 @@
 
          <div class="inv-label"> 
         <label for="make">Make:</label>
-        <input id="make" name="inv_make" type="text" placeholder="Make" 
+        <input id="make" name="inv_make" type="text" placeholder="Min of 3 characters" 
             required
+            minlength="3"
             value="<%= locals.inv_make %>" > 
         </div>  
            
         <div class="inv-label">
         <label for="model">Model:</label>
-        <input id="model" name="inv_model" type="text" placeholder="Model" 
+        <input id="model" name="inv_model" type="text" placeholder="Min of 3 characters" 
             required
+            minlength="3"
             value="<%= locals.inv_model %>" > 
         </div>
            
         <div class="inv-label">
         <label for="year">Year:</label>
-        <input id="year" name="inv_year" type="number" placeholder="Year" 
+        <input id="year" name="inv_year" type="number" placeholder="4-digit year" 
             required
+            max="9999"
             value="<%= locals.inv_year %>" > 
         </div>
 
         <div class="inv-label">       
         <label for="description">Description: </label>
-        <textarea id="description" name="inv_description" placeholder="Description" required></textarea>
+        <textarea id="description" name="inv_description" placeholder="Description" required><%= locals.inv_description %></textarea>
         <!-- <input name="inv_description" type="text" placeholder="Description" 
             required
             value="<%# locals.inv_description %>" >  -->
@@ -79,14 +84,14 @@
              
         <div class="inv-label">
         <label for="price">Price:</label>
-        <input id="price" name="inv_price" type="number" placeholder="Price" 
+        <input id="price" name="inv_price" type="number" placeholder="Decimal or integer" 
             required
             value="<%= locals.inv_price %>" > 
         </div>
             
         <div class="inv-label">
         <label for="miles">Miles:</label>
-        <input id="miles" name="inv_miles" type="number" placeholder="Miles" 
+        <input id="miles" name="inv_miles" type="number" placeholder="Digits only" 
             required
             value="<%= locals.inv_miles %>" > 
         </div>

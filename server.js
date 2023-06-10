@@ -66,7 +66,7 @@ app.use("/inv", utilities.handleErrors(require("./routes/inventoryRoute")))
 app.use("/account", require("./routes/accountRoute"))
 
 // Error Route (For testing and Assignment 3)
-// app.get("/error", utilities.handleErrors(baseController.buildError))
+app.get("/error", utilities.handleErrors(baseController.buildError))
 
 // File Not Found Route 
 // Must be last route in list
