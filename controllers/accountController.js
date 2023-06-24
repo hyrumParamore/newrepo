@@ -180,7 +180,6 @@ async function updateAccount(req, res, next) {
   const accountData = await accountModel.getAccountById(account_id)
 
   if (updateResult) {
-    // req.flash("notice", `Your account has been updated!`)
     res.clearCookie("jwt")
     delete accountData.account_password
     const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000})

@@ -98,8 +98,8 @@ router.post(
   "/add-inventory",
   regValidate.checkAccountAccess,
   regValidate.inventoryRules(),
-  regValidate.checkInventoryData,   // I don't think I need this for this route.
-  utilities.handleErrors(invController.AddNewInventory)  // This builds the addInventory function to then process all the data.
+  regValidate.checkInventoryData,  
+  utilities.handleErrors(invController.AddNewInventory)  
 )
 
 /* ***********************
