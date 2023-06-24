@@ -217,15 +217,17 @@ validate.checkAccountAccess = async (req, res, next) => {
     //   "notice", `account data: ${accountData.account_type}`
     // )
     
-    return res.render("./account/account", {
-            title: "Account Management",
-            nav,
-            errors: null,
-            selectList,
-            
+    res.render("./account/account", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      selectList,
+      
     }) 
-    next()
+    return
+    
   } 
+  next()
   
 }
 
