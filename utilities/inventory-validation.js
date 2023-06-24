@@ -208,11 +208,24 @@ validate.checkAccountAccess = async (req, res, next) => {
   const selectList = await utilities.getClassifications(classification_id)
   const accountData = res.locals.accountData
   errors = validationResult(req)
-  if (accountData.account_type != 'Employee' || accountData.account_type != 'Admin') {
-    return res.redirect("../")
+  if (accountData.account_type == 'Employee' || accountData.account_type == 'Admin') {
+    next() 
 
-  }
-  next()
+  } else {
+    // This was just to check what the account_type was.
+    // req.flash(
+    //   "notice", `account data: ${accountData.account_type}`
+    // )
+    
+    res.render("./account/account", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      selectList,
+      
+    }) 
+    next()
+  } 
   
 }
 
