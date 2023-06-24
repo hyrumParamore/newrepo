@@ -14,6 +14,7 @@ const env = require("dotenv").config()
 const app = express()
 const utilities = require("./utilities/")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -39,7 +40,13 @@ app.use(function(req, res, next){
 
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))  
+app.use(bodyParser.urlencoded({ extended: true })) 
+
+// Unit 5 Login JWT and Cookie
+app.use(cookieParser())
+
+// Unit 5 Login JWT and Cookie
+app.use(utilities.checkJWTToken)
 
 
 /* ***********************

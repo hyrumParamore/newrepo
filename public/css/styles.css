@@ -28,8 +28,19 @@ body {
   font-weight: 700;
 }
 
-#tools {
+#tools a{
   float: right;
+  color: black;
+  padding: 5px 10px;
+  transition: .15s;
+  margin: 2px;
+}
+
+#tools a:hover {
+  background-color: #242332;
+  color: white;
+  transition: .15s;
+    
 }
 
 /* NAVBAR */
@@ -378,7 +389,7 @@ textarea {
   font-size: 1.2em;
 }
 
-.form-box select {
+select {
   background-color: white;
   margin-top: 15px;
   padding: 5px 20px 5px 5px;
@@ -386,7 +397,7 @@ textarea {
   font-size: 1rem;
   transition: .15s;
 }
-.form-box select:hover{
+select:hover{
 background-color: #242332;
 color: white;
 transition: .15s;
@@ -405,6 +416,7 @@ transition: .15s;
   max-width: 400px;
 }
 .management a {
+  font-size: larger;
   background-color: white;
   padding: 5px;
   justify-content: center;
@@ -415,6 +427,75 @@ transition: .15s;
   color: white;
   transition: .15s;
 }
+
+/* ******************************
+* ACCOUNT MANAGEMENT
+********************************* */
+.account-management {
+  background-color: #07b2d3;
+  margin: 40px auto;
+  max-width: 400px;
+  padding: 10px 10px 30px 10px;
+  
+}
+
+.account-management a {
+  background-color: white;
+  margin: 0 auto;
+  font-size: larger;
+  color: black;
+  width: fit-content;
+  padding: 10px 20px;
+}
+
+.account-management a:hover {
+  font-size: larger;
+  color: white;
+  transition: .15s;
+  background-color: #242332;
+}
+
+
+
+/* ******************************
+* Manage Inventory - Table
+********************************* */
+.manage-inventory th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+
+
+
+
+.manage-inventory td a {
+  padding: 5px 20px;
+  border: 1px solid #24233255;
+  transition: .15s;
+}
+
+.manage-inventory td a:hover {
+  background-color: #242332;
+  color: white;
+  transition: .15s;
+}
+.manage-inventory td {
+  font-size: larger;
+  text-align: left;
+  padding-right: 10px;
+}
+.manage-inventory th {
+  font-size: larger;
+}
+
+.select-list select {
+  border: 1px solid #24233255;
+  padding: 5px 10px;
+}
+
+
 
 
 
@@ -461,6 +542,7 @@ input::-webkit-inner-spin-button {
   #tools {
     font-size: 18px;
   }
+  
   
   nav ul {
     width: 100%;
@@ -539,6 +621,8 @@ input::-webkit-inner-spin-button {
   .management {
     margin: 40px auto;
   }
+
+  
 
 }
 
