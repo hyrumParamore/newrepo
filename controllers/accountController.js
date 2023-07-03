@@ -43,12 +43,176 @@ async function buildRegister(req, res, next) {
  *************************/
 async function buildAccountManagement(req, res, next) {
   let nav = await utilities.getNav()
+
+  // This adds in the number of unread messages
+  const account_id = parseInt(res.locals.accountData.account_id)
+  const messageData = await accountModel.getReadMessage(account_id)
+  console.log(messageData[0].message_read)
+  const readMessages = messageData[0].message_read
+
   res.render("account/account", {
     title: "Account Management",
     nav,
     errors: null,
+    readMessages,
   })
 }
+
+
+
+
+
+// ********************** Final Project *********************************
+
+
+/* ***********************
+ * Final Project
+ * Build/Deliver Messages View
+ *************************/
+async function buildInboxView(req, res, next) {
+  let nav = await utilities.getNav()
+  const account_id = parseInt(res.locals.accountData.account_id)
+
+  // Populate the messages with the correct names that the 
+  const account_firstname = res.locals.accountData.account_firstname
+  const account_lastname = res.locals.accountData.account_lastname
+
+  const messageData = await accountModel.getArchivedMessage(account_id)
+  const messageList = await utilities.getMessages(account_id, account_firstname, account_lastname)
+  const archivedCount = messageData[0].message_archived
+
+
+
+  if(messageData){
+    // req.flash("notice", `${account_id}: ${messageData.message_to}`)
+    res.render("account/inbox", {
+      title: `Name goes here - Inbox `,
+      nav,
+      archivedCount,
+      errors: null,
+      messageList,
+    })
+  }
+}
+
+
+/* ***********************
+ * Final Project
+ * Build/Deliver Create New Message View
+ *************************/
+async function buildCreateNewMessageView(req, res, next) {
+  let nav = await utilities.getNav()
+
+  const account_id = parseInt(res.locals.accountData.account_id)
+
+  const recipientList = await utilities.getRecipient(account_id)
+
+  res.render("account/newMessage", {
+    title: "Create a New Message",
+    nav,
+    errors: null,
+    recipientList,
+  })
+}
+
+
+/* ***********************
+ * Final Project
+ * Build/Deliver Messages View
+ *************************/
+async function buildArchivedMessagesView(req, res, next) {
+  let nav = await utilities.getNav()
+
+  res.render("account/archivedMessages", {
+    title: "Archived Messages",
+    nav,
+    errors: null,
+  })
+}
+
+/* ***********************
+ * Final Project
+ * Build/Deliver Message By ID View
+ *************************/
+async function buildMessageByIdView(req, res, next) {
+  const message_id = parseInt(req.params.messageId)
+  
+
+  const data = await accountModel.getMessageByMessageId(message_id)
+  const messageGrid = await utilities.buildMessageHTML(data)
+  let nav = await utilities.getNav()
+  res.render("account/message", {
+    title: data.message_subject,
+    nav,
+    messageGrid,
+    errors: null,
+  })
+}
+
+
+
+/* ***********************
+ * Final Project
+ * Post new message to the Database
+ *************************/
+async function sendNewMessage(req, res) {
+  let nav = await utilities.getNav()
+
+  const account_id = parseInt(res.locals.accountData.account_id)
+
+  const { 
+    message_subject, 
+    message_body, 
+    message_to,
+  } = req.body
+
+  const messageData = await accountModel.getArchivedMessage(account_id)
+
+  
+  const archivedCount = messageData[0].message_archived
+
+  // (account_id here is being used as the message_from in the query)
+  const messageResult = await accountModel.addNewMessage(
+    account_id,
+    message_subject, 
+    message_body,
+    message_to,
+  )
+
+  const messageList = await utilities.getMessages(account_id)
+
+  if (messageResult) {
+    req.flash(
+      "notice",
+      `Your message has been sent!`
+    )
+    res.status(201).render("account/inbox", {
+      title: "Inbox",
+      nav,
+      errors: null,
+      archivedCount,
+      messageList,
+    })
+    // return res.redirect("/account/inbox")
+  } else {
+    console.log("This did not work")
+    req.flash("notice", "Sorry, we were not able to send the message at this time.")
+    res.status(501).render("account/newMessage", {
+      // Will need to add the select list later here
+      title: "Create a New Message",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+
+// *********************************************************************
+
+
+
+
+
 
 
 /* ****************************************
@@ -272,4 +436,9 @@ async function updatePassword(req, res, next) {
     updateAccount,
     updatePassword,
     logoutAccount,
+    buildInboxView,
+    buildCreateNewMessageView,
+    buildArchivedMessagesView,
+    buildMessageByIdView,
+    sendNewMessage,
   }

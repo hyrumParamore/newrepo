@@ -107,4 +107,66 @@ router.get(
 
 
 
+
+
+/* ***********************
+ * Inbox View
+ * Final Project - Messages
+ *************************/
+router.get(
+  "/inbox",
+  utilities.handleErrors(accountController.buildInboxView)
+)
+
+/* ***********************
+ * New Messages View
+ * Final Project - Messages
+ *************************/
+router.get(
+  "/newMessage",
+  utilities.handleErrors(accountController.buildCreateNewMessageView)
+)
+
+/* ***********************
+ * Archived Messages View
+ * Final Project - Messages
+ *************************/
+router.get(
+  "/archivedMessages",
+  utilities.handleErrors(accountController.buildArchivedMessagesView)
+)
+
+/* ***********************
+ * Post a new message and deliver view
+ * Final Project - Messages
+ *************************/
+router.post(
+  "/newMessage",
+  utilities.handleErrors(accountController.sendNewMessage)
+)
+
+
+/* ***********************
+ * Deliver a message by Message ID
+ * Final Project - Messages
+ *************************/
+router.get(
+  "/inbox/:messageId",
+  utilities.handleErrors(accountController.buildMessageByIdView)
+)
+
+
+
+/* ***********************
+ * Get inventory for AJAX Route
+ * Unit 5 Select inv item activity
+ *************************/
+// router.get(
+//   "/getInventory/:classification_id",
+//   regValidate.checkAccountAccess,
+//   utilities.handleErrors(accountController.getMessageData)
+// )
+
+
+
 module.exports = router;

@@ -1,0 +1,50 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+
+
+<!-- Account Error Display -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+<% } %>
+
+
+
+
+<!-- Classification Form -->
+<div class="new-message-body">
+  <p>This is an internal system only. Recipients are limited to the three generic accounts.</p>
+  <p>All inputs are required.</p>
+
+  <div class="form-box">
+    <form action="/account/newMessage" method="post">
+
+      <!-- Select list goes here -->
+      <%- recipientList %>
+
+      <div class="inv-label">
+        <label for="message_subject">Subject:</label>
+        <input name="message_subject" type="text" placeholder="Subject" 
+          required 
+          value="<%= locals.message_subject %>"> 
+      </div>
+
+      <div class="inv-label">
+        <label for="message_body">Message:</label>
+        <textarea name="message_body" type="textarea" placeholder="Insert message here..." required></textarea>
+      </div>
+
+      
+
+      <button type="submit" class="form-btn">Send</button>
+
+    </form>
+  </div>
+</div>
