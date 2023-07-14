@@ -6,8 +6,12 @@
 const express = require("express")
 const router = new express.Router() 
 const accountController = require("../controllers/accountController")
+const messageController = require("../controllers/messageController")
+
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
+const messageValidate = require('../utilities/message-validation')
+const validate = require("../utilities/account-validation")
 
 
 /* ***********************
@@ -35,9 +39,10 @@ router.get(
  * Deliver account view
  * Unit 5 - JWT Authorization activity
  *************************/
-router.get("/",  
-utilities.checkLogin,
-utilities.handleErrors(accountController.buildAccountManagement)
+router.get(
+  "/",  
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccountManagement)
 )
 
 
@@ -70,6 +75,7 @@ router.post(
  *************************/
 router.get(
   "/editAccount",
+  utilities.checkLogin,
   utilities.handleErrors(accountController.editAccountView)
 )
 
@@ -113,59 +119,124 @@ router.get(
  * Inbox View
  * Final Project - Messages
  *************************/
-router.get(
-  "/inbox",
-  utilities.handleErrors(accountController.buildInboxView)
-)
-
-/* ***********************
- * New Messages View
- * Final Project - Messages
- *************************/
-router.get(
-  "/newMessage",
-  utilities.handleErrors(accountController.buildCreateNewMessageView)
-)
-
-/* ***********************
- * Archived Messages View
- * Final Project - Messages
- *************************/
-router.get(
-  "/archivedMessages",
-  utilities.handleErrors(accountController.buildArchivedMessagesView)
-)
-
-/* ***********************
- * Post a new message and deliver view
- * Final Project - Messages
- *************************/
-router.post(
-  "/newMessage",
-  utilities.handleErrors(accountController.sendNewMessage)
-)
-
-
-/* ***********************
- * Deliver a message by Message ID
- * Final Project - Messages
- *************************/
-router.get(
-  "/inbox/:messageId",
-  utilities.handleErrors(accountController.buildMessageByIdView)
-)
-
-
-
-/* ***********************
- * Get inventory for AJAX Route
- * Unit 5 Select inv item activity
- *************************/
 // router.get(
-//   "/getInventory/:classification_id",
-//   regValidate.checkAccountAccess,
-//   utilities.handleErrors(accountController.getMessageData)
+//   "/inbox",
+//   utilities.checkLogin,
+//   utilities.handleErrors(messageController.buildInboxView)
 // )
+
+
+
+// /* ***********************
+//  * Archived Messages View
+//  * Final Project - Messages
+//  *************************/
+// router.get(
+//   "/archivedMessages",
+//   utilities.checkLogin,
+//   utilities.handleErrors(accountController.buildArchivedMessagesView)
+// )
+
+
+// /* ***********************
+//  * New Messages View
+//  * Final Project - Messages
+//  *************************/
+// router.get(
+//   "/newMessage",
+//   utilities.checkLogin,
+//   utilities.handleErrors(accountController.buildCreateNewMessageView)
+// )
+
+// /* ***********************
+//  * Post a new message and deliver view
+//  * Final Project - Messages
+//  *************************/
+// router.post(
+//   "/newMessage",
+//   messageValidate.messagingRules(),
+//   messageValidate.checkMessageData,
+//   utilities.handleErrors(accountController.sendNewMessage)
+// )
+
+
+// /* ***********************
+//  * Deliver a message view by Message ID
+//  * Final Project - Messages
+//  *************************/
+// router.get(
+//   "/inbox/:messageId",
+//   utilities.checkLogin,
+//   utilities.handleErrors(accountController.buildMessageByIdView)
+// )
+
+
+
+
+// /* *************************************************
+
+// /* ***********************
+//  * Reply to a message
+//  * Final Project - Messages
+//  *************************/
+// router.get(
+//   "/replyMessage/:messageId",
+//   utilities.checkLogin,
+//   utilities.handleErrors(accountController.buildReplyMessageView)
+// )
+// router.post(
+//   "/replyMessage",
+//   messageValidate.messagingRules(),
+//   messageValidate.checkReplyMessageData,
+//   utilities.handleErrors(accountController.replyToMessage)
+// )
+
+// // router.post(
+// //   "/newMessage/:messageFrom",
+// //   utilities.handleErrors(accountController.sendNewMessage)
+// // )
+
+// /* *************************************************
+
+
+// /* ***********************
+//  * Mark a Message as Read
+//  * Final Project - Messages
+//  *************************/
+// router.post(
+//   "/inbox/markAsRead/:messageId",
+//   utilities.handleErrors(accountController.markAsRead)
+// )
+
+// /* ***********************
+//  * Archive a message
+//  * Final Project - Messages
+//  *************************/
+// router.post(
+//   "/inbox/archive/:messageId",
+//   utilities.handleErrors(accountController.archiveMessage)
+// )
+
+// /* ***********************
+//  * Delete a message
+//  * Final Project - Messages
+//  *************************/
+// router.post(
+//   "/inbox/delete/:messageId",
+//   utilities.handleErrors(accountController.deleteMessage)
+// )
+
+
+
+// /* ***********************
+//  * Get inventory for AJAX Route
+//  * Unit 5 Select inv item activity
+//  *************************/
+// // router.get(
+// //   "/getInventory/:classification_id",
+// //   regValidate.checkAccountAccess,
+// //   utilities.handleErrors(accountController.getMessageData)
+// // )
 
 
 

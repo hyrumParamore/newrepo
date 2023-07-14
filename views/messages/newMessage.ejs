@@ -24,21 +24,25 @@
   <p>All inputs are required.</p>
 
   <div class="form-box">
-    <form action="/account/newMessage" method="post">
+    <form action="/messages/newMessage" method="post">
 
       <!-- Select list goes here -->
-      <%- recipientList %>
+      <div class="inv-label">
+        <label for="messageTo">To:</label>
+        <%- recipientList %>
+      </div>
+      
 
       <div class="inv-label">
-        <label for="message_subject">Subject:</label>
-        <input name="message_subject" type="text" placeholder="Subject" 
+        <label for="messageSubject">Subject:</label>
+        <input id="messageSubject" name="message_subject" type="text" placeholder="Subject" 
           required 
           value="<%= locals.message_subject %>"> 
       </div>
 
       <div class="inv-label">
-        <label for="message_body">Message:</label>
-        <textarea name="message_body" type="textarea" placeholder="Insert message here..." required></textarea>
+        <label for="messageBody">Message:</label>
+        <textarea id="messageBody" class="message-body" name="message_body" placeholder="Insert message here..." required><%= locals.message_body %></textarea>
       </div>
 
       
@@ -47,4 +51,6 @@
 
     </form>
   </div>
+
+  <a class="inbox-link" title="Inbox" href="/messages">Return to Inbox</a>
 </div>

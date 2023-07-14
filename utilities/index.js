@@ -10,7 +10,7 @@ require("dotenv").config()
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  let list = "<ul>"
+  let list = `<ul class="navbar">`
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
@@ -52,7 +52,8 @@ Util.getClassifications = async function (selectedClassification, req, res, next
  ************************** */
 Util.getRecipient = async function (selectRecipient, req, res, next) {
   let data = await accountModel.getAccounts()
-  let recipientList = '<select name="message_to" id="select_account" class="select-account">'
+  let recipientList = '<select name="message_to" id="messageTo" class="select-account">'
+  
   data.rows.forEach((row) => {
     let selected = ""
     if (selectRecipient == row.account_id) {
@@ -69,12 +70,13 @@ Util.getRecipient = async function (selectRecipient, req, res, next) {
 /* ************************
  * Constructs the get message HTML and builds the table for the messages
  ************************** */
-Util.getMessages = async function (account_id, req, res, next) {
-
+Util.getMessages = async function (data, account_id, req, res, next) {
+  if (!data || data.length === 0) {
+    let messageList = `<h3>You don't have any messages to display.</h3>`
+    return messageList; // Return an empty string if the data array is empty or falsy
+  }
   
-  let data = await accountModel.getMessagesByAccountId(account_id)
-  
-  let messageList = '<table>' 
+  let messageList = '<table class="message-list">' 
   messageList += '<tr>'
   messageList += '<th>Received</th>'
   messageList += '<th>Subject</th>'
@@ -82,22 +84,35 @@ Util.getMessages = async function (account_id, req, res, next) {
   messageList += '<th>Read</th>'
   messageList += '</tr>'
 
-
   messageList += data.map((row) => {
+    // Format the date and time here.
+    // create a new date.
+    let date = new Date(row.message_created)
+    // let formattedDate = date.toLocaleDateString()
+    let formattedTime = date.toLocaleDateString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+
+    let read = row.message_read
+    if (row.message_read == "true") {
+      read = true
+    } else {
+      read = false
+    }
+
     return `
       <tr>
-        <td>${row.message_created}</td>
-        <td><a href="/account/inbox/${row.message_id}">${row.message_subject}</a></td>
-        <td>${row.account_firstname} ${row.account_lastname}</td>
-        <td>${row.message_read}</td>
+        <td><a href="/messages/${row.message_id}">${formattedTime}</a></td>
+        <td><a href="/messages/${row.message_id}"><b>${row.message_subject}</b></a></td>
+        <td><a href="/messages/${row.message_id}">${row.account_firstname} ${row.account_lastname}</a></td>
+        <td><a href="/messages/${row.message_id}">${row.message_read}</a></td>
       </tr>
     `;
   }).join('');
   messageList += '</tbody>'; 
   messageList += '</table>';
   
-  return messageList
+  return messageList;
 }
+
 
 
 
@@ -120,7 +135,6 @@ Util.buildClassificationGrid = async function(data){
             grid += '<div class="namePrice">'
               grid += '<hr>'
               grid += '<h2>'
-              // I added a class here to make the CSS easier.
               grid += '<a class="vehicle-image" href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
               + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
               + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
@@ -174,34 +188,67 @@ Util.buildVehicleHtml = async function(vehicle){
 * Build the message view HTML
 * ************************************ */
 Util.buildMessageHTML = async function(message){
-  
 
-  function markAsRead() {
-    accountModel.markAsRead(message.message_id)
-  }
-  
+  let date = new Date(message.message_created)
+  let formattedDate = date.toLocaleDateString()
+  let formattedTime = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+
+
   let messageGrid = ''
   if(message){
     messageGrid += '<div class="message-page">'
       messageGrid += '<div class="message-container">'
 
+        messageGrid += `<p class="message-message"><b>Date: </b>${formattedDate} ${formattedTime}</p>`
         messageGrid += `<p class="message-subject"> <b>Subject: </b>${message.message_subject}</p>`
-        messageGrid += `<p name="message_from" class="message-from"><b>From: </b>${message.account_firstname} ${message.account_lastname}</p>`
-        messageGrid += `<p class="message-message"><b>Message: </b>${message.message_body}</p>`
-
+        messageGrid += `<p class="message-from"><b>From: </b>${message.account_firstname} ${message.account_lastname}</p>`
+        messageGrid += `<p style="white-space: pre-wrap;" class="message-message"><b>Message: </b>\n${message.message_body}</p>`
+        
       messageGrid += `</div>`
+      messageGrid += `<hr class="message-hr">`
+      messageGrid += `<br>`
+      
+
       messageGrid += `<div class="message-options">`
+        // messageGrid += `<br>`
 
-        messageGrid += `<a title="Inbox" href="/account/inbox">Return to Inbox</a>`
-        // Make it so that when this button it pressed, it will set the select list to the correct account to reply
-        messageGrid += `<a href="/account/newMessage" class="message-button">Reply</a>`
-        messageGrid += `<a href="/account/inbox" onclick="${markAsRead()}" class="message-button">Mark as Read</a>`
-        messageGrid += `<button class="message-button">Archive Message</button>`
-        messageGrid += `<button class="message-button">Delete Message</button>`
+        // Reply to Message
+        messageGrid += `<form action="/messages/replyMessage/${message.message_id}">`
+          messageGrid += `<button type="submit" class="message-button">Reply</button>`
+        messageGrid += `</form>`
+
+        // Only display read button if the message_read is unread
+        if (message.message_read == false) {
+          // Mark as Read Messages
+          messageGrid += `<form action="/messages/markAsRead/${message.message_id}" method="post">`
+            messageGrid += `<button type="submit" class="message-button">Mark as Read</button>`
+          messageGrid += `</form>`
+        }
+
+        // Only display archive button if the message is not archived
+        if (message.message_archived == false) {
+          // Archive Messages
+          messageGrid += `<form action="/messages/archive/${message.message_id}" method="post">`
+            messageGrid += `<button type="submit" class="message-button">Archive Message</button>`
+          messageGrid += `</form>`
+        }
+        
+        // Delete Messages
+        messageGrid += `<form action="/messages/delete/${message.message_id}" method="post">`
+          messageGrid += `<button type="submit" class="message-button">Delete Message</button>`
+        messageGrid += `</form>`
 
       messageGrid += `</div>`
+
+      // Takes you back to the inbox
+      messageGrid += `<br>`
+      messageGrid += `<a class="inbox-link" title="Inbox" href="/messages">Return to Inbox</a>`
+      
       messageGrid += `<br>`
     messageGrid += `</div>`
+
+    messageGrid += `<input type="hidden" name="message_id" value="${message.message_id}">`
+
 
 
   } else { 

@@ -1,0 +1,63 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+
+
+<!-- Account Error Display -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+<% } %>
+
+
+
+
+<!-- Classification Form -->
+<div class="new-message-body">
+  <p>This is an internal system only. Recipients are limited to the three generic accounts.</p>
+  <p>All inputs are required.</p>
+
+  <div class="form-box">
+    <form action="/messages/replyMessage" method="post">
+
+      <!-- Select list goes here -->
+      <%# recipientList %>
+      <div class="inv-label">
+        <label for="messageTo">To:</label>
+        <input id="messageTo" name="messageTo" type="text" readonly value="<%= locals.account_email %>">
+        <input name="message_to" type="hidden" value="<%= locals.accountFromId %>">
+      </div>
+      
+
+      <div class="inv-label">
+        <label for="messageSubject">Subject:</label>
+        <input id="messageSubject" name="message_subject" type="text" placeholder="Subject" 
+          required 
+          value="RE: <%= locals.reply_subject %>">
+          
+          <%# locals.reply_subject %>
+      </div>
+
+      <div class="inv-label">
+        <label for="messageBody">Message:</label>
+        <textarea id="messageBody" class="message-body" name="message_body" placeholder="Insert message here..." required><% if(locals.message_body){%><%=locals.reply_body+"\n\n//REPLY FROM: "+accountData.account_email+"\n//Date: "+locals.message_created+"\n"%><%}else %><%{%><%=locals.reply_body+"\n\n//REPLY FROM: "+accountData.account_email+"\n//Date: "+locals.message_created+"\n"%><%}%></textarea>
+      </div>
+
+      <input type="hidden" name="message_from" value="<%= locals.message_from %>">
+      
+      <input type="hidden" name="message_id"
+        <% if(locals.message_id) { %> value="<%= locals.message_id %>"
+        <% } %>>
+
+      <button type="submit" class="form-btn">Send</button>
+
+    </form>
+  </div>
+  <a class="inbox-link" title="Inbox" href="/messages">Return to Inbox</a>
+</div>

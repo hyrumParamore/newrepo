@@ -44,33 +44,26 @@ body {
 }
 
 /* NAVBAR */
-nav ul {
-  width: 100%;
-  background-color: #242332;
+.navbar {
+  max-width: inherit;
+  justify-content: space-evenly;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+}
+nav ul {
+  background-color: #242332;
   list-style: none;
   padding-left: 0px;
 }
-
 nav a {
-  width: 100%;
   padding: 12px;
   color: white;
   text-decoration: none;
-  justify-content: center;
 }
-nav li {
-  width: 100%;
-}
-
-
 nav a:hover {
   background-color: #07b2d3;
   color: #242332;
 }
-
-
 .welcome {
   text-align: left;
 }
@@ -282,12 +275,12 @@ hr {
 }
 .form-box {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 100%;
   background-color: #07b2d3;
   text-align: left;
   padding: 25px;
   margin: 8%;
-  max-width: 400px;
+  max-width: 600px;
   /* box-shadow: 2px 2px 5px #242332; */
 }
 .form-box div {
@@ -380,9 +373,10 @@ textarea:required:valid {
 ************************ */
 textarea {
   resize: vertical;
-  min-height: 3em;
-  max-height: 500px;
+  min-height: 300px;
+  /* max-height: auto; */
   font-size: 1.15em;
+  
   
 }
 .inv-label label {
@@ -466,16 +460,11 @@ transition: .15s;
   text-align: left;
   color: black;
 }
-
-
-
-
 .manage-inventory td a {
   padding: 5px 20px;
   border: 1px solid #24233255;
   transition: .15s;
 }
-
 .manage-inventory td a:hover {
   background-color: #242332;
   color: white;
@@ -489,13 +478,10 @@ transition: .15s;
 .manage-inventory th {
   font-size: larger;
 }
-
 .select-list select {
   border: 1px solid #24233255;
   padding: 5px 10px;
 }
-
-
 
 
 
@@ -507,6 +493,96 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
+
+/* ******************************
+* INBOX MESSAGE TABLE
+********************************* */
+.message-list {
+  font-size: .8em;
+  border: 1px solid #24233221;
+  padding: 2px;
+  margin: 0 auto;
+}
+.message-list th {
+  color: white;
+  background-color: #242332;
+  padding: 5px 15px;
+}
+.message-list tr {
+  border: none;
+  transition: .15s;
+}
+.message-list td {
+  padding: 0px 10px;
+  border: none;
+}
+.message-list tr:nth-child(even) {
+  background-color: #e9e9e9;
+}
+.message-list tr:nth-child(odd) {
+  background-color: rgb(250, 250, 250);
+}
+.message-list tr:hover {
+  background-color: #c5c5c5c4;
+  box-shadow: 0px 0px 10px #24233255;
+  transition: .15s;
+}
+
+
+/* MESSAGE VIEW */
+.message-container {
+  text-align: left;
+}
+.message-hr {
+  border: 1px solid #242332;
+  width: 100%;
+}
+.message-options {
+  text-align: left;
+  justify-content: left;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+}
+.message-button {
+  background-color: white;
+  margin: 0 auto;
+  color: black;
+  width: fit-content;
+  padding: 5px 10px;
+  border: 1px solid #2423322a;
+  border-radius: 5px;
+  font-size: medium;
+  transition: .15s;
+}
+.message-button:hover {
+  color: white;
+  transition: .15s;
+  background-color: #242332;
+}
+.inbox-link {
+  background-color: #242332;
+  color: white;
+  width: fit-content;
+  padding: 5px 10px;
+  border: 0px;
+  transition: .15s;
+}
+.inbox-link:hover {
+  color: black;
+  transition: .15s;
+  background-color: #07b2d3;
+}
+
+/* MESSAGE REPLY */
+.message-body {
+  font-size: medium;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 
 
 @media only screen and (max-width: 1200px) {
@@ -623,6 +699,16 @@ input::-webkit-inner-spin-button {
   }
 
   
+
+  /* MESSAGE VIEW */
+  
+
+  /* INBOX MESSAGE TABLE */
+  .message-list {
+    font-size: medium;
+    max-width: 800px;
+  }
+
 
 }
 
