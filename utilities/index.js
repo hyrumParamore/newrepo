@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const accountModel = require("../models/account-model")
+const messageModel = require("../models/message-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -51,7 +52,7 @@ Util.getClassifications = async function (selectedClassification, req, res, next
  * Constructs the select for the messaging recipient
  ************************** */
 Util.getRecipient = async function (selectRecipient, req, res, next) {
-  let data = await accountModel.getAccounts()
+  let data = await messageModel.getAccounts()
   let recipientList = '<select name="message_to" id="messageTo" class="select-account">'
   
   data.rows.forEach((row) => {
@@ -88,7 +89,6 @@ Util.getMessages = async function (data, account_id, req, res, next) {
     // Format the date and time here.
     // create a new date.
     let date = new Date(row.message_created)
-    // let formattedDate = date.toLocaleDateString()
     let formattedTime = date.toLocaleDateString([], { hour: 'numeric', minute: '2-digit', hour12: true })
 
     let read = row.message_read
@@ -210,7 +210,6 @@ Util.buildMessageHTML = async function(message){
       
 
       messageGrid += `<div class="message-options">`
-        // messageGrid += `<br>`
 
         // Reply to Message
         messageGrid += `<form action="/messages/replyMessage/${message.message_id}">`

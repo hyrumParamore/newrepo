@@ -1,6 +1,6 @@
 <!-- ************************
-*   Add Inventory View
-*       Assignment 4
+*   Delete Message
+*   Final Project
 ************************* -->
 
 
@@ -14,7 +14,7 @@
 <!-- Display Messages -->
 <%- messages()  %>
 
-<!-- Add-Inventory Error Display -->
+<!-- Message Error Display -->
 <% if (errors) { %>
     <ul class="notice">
    <% errors.array().forEach(error => { %>
@@ -23,7 +23,7 @@
    </ul>
 <% } %>
 
-<!-- Add-Inventory Form -->
+<!-- Delete Message Form -->
 <div class="form-box">
     <form action="/messages/delete" method="post">
         <div>

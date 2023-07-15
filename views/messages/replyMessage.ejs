@@ -1,3 +1,4 @@
+<!-- Page Title -->
 <% if (title) { %>
     <h1><%= title %></h1>
     <% } else {
@@ -6,7 +7,7 @@
 
 
 
-<!-- Account Error Display -->
+<!-- Reply Message Error Display -->
 <% if (errors) { %>
     <ul class="notice">
    <% errors.array().forEach(error => { %>
@@ -17,8 +18,7 @@
 
 
 
-
-<!-- Classification Form -->
+<!-- Reply Message Form -->
 <div class="new-message-body">
   <p>This is an internal system only. Recipients are limited to the three generic accounts.</p>
   <p>All inputs are required.</p>
@@ -26,8 +26,6 @@
   <div class="form-box">
     <form action="/messages/replyMessage" method="post">
 
-      <!-- Select list goes here -->
-      <%# recipientList %>
       <div class="inv-label">
         <label for="messageTo">To:</label>
         <input id="messageTo" name="messageTo" type="text" readonly value="<%= locals.account_email %>">
@@ -41,12 +39,11 @@
           required 
           value="RE: <%= locals.reply_subject %>">
           
-          <%# locals.reply_subject %>
       </div>
 
       <div class="inv-label">
         <label for="messageBody">Message:</label>
-        <textarea id="messageBody" class="message-body" name="message_body" placeholder="Insert message here..." required><% if(locals.message_body){%><%=locals.reply_body+"\n\n//REPLY FROM: "+accountData.account_email+"\n//Date: "+locals.message_created+"\n"%><%}else %><%{%><%=locals.reply_body+"\n\n//REPLY FROM: "+accountData.account_email+"\n//Date: "+locals.message_created+"\n"%><%}%></textarea>
+        <textarea id="messageBody" class="message-body" name="message_body" placeholder="Insert message here..." required><% if(locals.message_body){%><%=locals.message_body+"\n\n//REPLY FROM: "+locals.account_email+"\n//Date: "+locals.message_created+"\n"%><%}%><%=locals.reply_body+"\n\n//REPLY FROM: "+locals.account_email+"\n//Date: "+locals.message_created+"\n"%></textarea>
       </div>
 
       <input type="hidden" name="message_from" value="<%= locals.message_from %>">

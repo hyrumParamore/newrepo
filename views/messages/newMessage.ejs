@@ -1,3 +1,4 @@
+<!-- New Message Page Title -->
 <% if (title) { %>
     <h1><%= title %></h1>
     <% } else {
@@ -5,8 +6,7 @@
 } %>
 
 
-
-<!-- Account Error Display -->
+<!-- New Message Error Display -->
 <% if (errors) { %>
     <ul class="notice">
    <% errors.array().forEach(error => { %>
@@ -16,9 +16,7 @@
 <% } %>
 
 
-
-
-<!-- Classification Form -->
+<!-- New Message Form -->
 <div class="new-message-body">
   <p>This is an internal system only. Recipients are limited to the three generic accounts.</p>
   <p>All inputs are required.</p>
@@ -26,7 +24,6 @@
   <div class="form-box">
     <form action="/messages/newMessage" method="post">
 
-      <!-- Select list goes here -->
       <div class="inv-label">
         <label for="messageTo">To:</label>
         <%- recipientList %>
@@ -44,8 +41,6 @@
         <label for="messageBody">Message:</label>
         <textarea id="messageBody" class="message-body" name="message_body" placeholder="Insert message here..." required><%= locals.message_body %></textarea>
       </div>
-
-      
 
       <button type="submit" class="form-btn">Send</button>
 

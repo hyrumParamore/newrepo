@@ -24,7 +24,6 @@ router.get(
 )
 
 
-
 /* ***********************
  * Archived Messages View
  * Final Project - Messages
@@ -68,11 +67,6 @@ router.get(
   utilities.handleErrors(messageController.buildMessageByIdView)
 )
 
-
-
-
-/* *************************************************
-
 /* ***********************
  * Reply to a message
  * Final Project - Messages
@@ -84,17 +78,11 @@ router.get(
 )
 router.post(
   "/replyMessage",
+  utilities.checkLogin,
   messageValidate.messagingRules(),
   messageValidate.checkReplyMessageData,
   utilities.handleErrors(messageController.replyToMessage)
 )
-
-// router.post(
-//   "/newMessage/:messageFrom",
-//   utilities.handleErrors(messageController.sendNewMessage)
-// )
-
-/* *************************************************
 
 
 /* ***********************
@@ -103,6 +91,7 @@ router.post(
  *************************/
 router.post(
   "/markAsRead/:messageId",
+  utilities.checkLogin,
   utilities.handleErrors(messageController.markAsRead)
 )
 
@@ -112,6 +101,7 @@ router.post(
  *************************/
 router.post(
   "/archive/:messageId",
+  utilities.checkLogin,
   utilities.handleErrors(messageController.archiveMessage)
 )
 
@@ -121,21 +111,9 @@ router.post(
  *************************/
 router.post(
   "/delete/:messageId",
+  utilities.checkLogin,
   utilities.handleErrors(messageController.deleteMessage)
 )
-
-
-
-/* ***********************
- * Get inventory for AJAX Route
- * Unit 5 Select inv item activity
- *************************/
-// router.get(
-//   "/getInventory/:classification_id",
-//   regValidate.checkAccountAccess,
-//   utilities.handleErrors(messageController.getMessageData)
-// )
-
 
 
 module.exports = router;

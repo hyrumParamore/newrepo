@@ -1,6 +1,6 @@
 /* ***********************
- * Account Controller
- * Unit 4 Activity
+ * Message Controller
+ * Final Project
  *************************/
 const messageModel = require("../models/message-model")
 const accountModel = require("../models/account-model")
@@ -24,20 +24,13 @@ async function buildInboxView(req, res, next) {
   // Populate the messages with the correct names that the 
   const account_firstname = res.locals.accountData.account_firstname
   const account_lastname = res.locals.accountData.account_lastname
-
   const archivedMessageData = await messageModel.getArchivedCount(account_id)
-  // const messageList = await utilities.getMessages(account_id, account_firstname, account_lastname)
   const archivedCount = archivedMessageData[0].message_archived
-
   const messageData = await messageModel.getMessagesByAccountId(account_id)
   const messageList = await utilities.getMessages(messageData)
 
-  
-
   if(messageData){
-    
-    // req.flash("notice", `${account_id}: ${messageData.message_to}`)
-    res.render("messages/inbox", {
+        res.render("messages/inbox", {
       title: `${account_firstname} ${account_lastname} - Inbox `,
       nav,
       messageList,
@@ -72,10 +65,7 @@ async function buildCreateNewMessageView(req, res, next) {
  *************************/
 async function buildArchivedMessagesView(req, res, next) {
   let nav = await utilities.getNav()
-
   const account_id = parseInt(res.locals.accountData.account_id)
-
-
   const messageData = await messageModel.getArchivedMessages(account_id)
   const messageList = await utilities.getMessages(messageData)
 
@@ -149,48 +139,29 @@ async function deleteMessage(req, res, next) {
  *************************/
 async function buildReplyMessageView(req, res) {
   let nav = await utilities.getNav()
-  // const account_id = parseInt(res.locals.accountData.account_id)
   const message_id = parseInt(req.params.messageId)
-
-  // const { 
-  //   message_subject, 
-  //   message_body, 
-  //   // message_id,
-  // } = req.body
-
-  // const messageFromData = await accountModel.getAccountById(message_from)
   const messageReplyData = await messageModel.getMessageByMessageId(message_id)
   const messageFromData = await accountModel.getAccountById(messageReplyData.message_from)
   const message_from = messageFromData.message_from
 
 
   const reply_subject = messageReplyData.message_subject
+  
   const reply_body = messageReplyData.message_body
+  console.log(reply_body)
 
   // Time format
   let date = new Date(messageReplyData.message_created)
   let formattedDate = date.toLocaleDateString()
-  let formattedTime = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
-  // const message_created = messageReplyData.message_created
-  
+  let formattedTime = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })  
   let message_created = formattedDate + " Time: " + formattedTime
-
-  // This is the working code
-  // const messageResult = await messageModel.addNewMessage(
-  //   account_id,
-  //   message_subject, 
-  //   message_body,
-  //   message_from,
-  // )
   
-  // This is a test for the update messages
+  // This is a test for the update messages - which I decided not to do. See the model it is linked to.
   // const messageResult = await messageModel.updateMessageReply(
   //   message_subject, 
   //   message_body,
   //   message_id,
   // )
-
-
 
   const account_email = messageFromData.account_email
   const accountFromId = messageFromData.account_id
@@ -211,8 +182,6 @@ async function buildReplyMessageView(req, res) {
       message_created,
       reply_subject,
       reply_body,
-      
-      
     })
 
   } else {
@@ -238,9 +207,6 @@ async function replyToMessage(req, res) {
   // Populate the messages with the correct names that the 
   const account_firstname = res.locals.accountData.account_firstname
   const account_lastname = res.locals.accountData.account_lastname
-  // const message_id = parseInt(req.params.messageId)
-  // const message_from = parseInt(req.params.messageFrom)
-
   const account_id = parseInt(res.locals.accountData.account_id)
 
   const { 
@@ -253,8 +219,6 @@ async function replyToMessage(req, res) {
 
   const archivedMessageData = await messageModel.getArchivedCount(account_id)
   const archivedCount = archivedMessageData[0].message_archived
-
-  
 
   // (account_id here is being used as the message_from in the query)
   const messageResult = await messageModel.addNewMessage(
@@ -272,15 +236,11 @@ async function replyToMessage(req, res) {
   //   message_id,
   // )
 
-
   const messageData = await messageModel.getMessagesByAccountId(account_id)
-
   const messageList = await utilities.getMessages(messageData)
-
   const messageFromData = await accountModel.getAccountById(account_id)
   const account_email = messageFromData.account_email
   const accountFromId = messageFromData.account_id
-
 
   if (messageResult) {
     req.flash(
@@ -294,7 +254,6 @@ async function replyToMessage(req, res) {
       errors: null,
       messageList,
     })
-    // return res.redirect("/account/inbox")
   } else {
     req.flash("notice", "Sorry, we were not able to send the message at this time.")
     res.render(`messages/replyMessage/${message_from}`, {
@@ -348,19 +307,13 @@ async function markAsRead(req, res, next) {
 async function archiveMessage(req, res, next) {
   let nav = await utilities.getNav()
   const account_id = parseInt(res.locals.accountData.account_id)
-
   const message_id = parseInt(req.params.messageId)
   
   // Populate the messages with the correct names that the 
   const account_firstname = res.locals.accountData.account_firstname
   const account_lastname = res.locals.accountData.account_lastname
-
-  
-  
-  
   const archiveMessage = await messageModel.markAsArchived(message_id)
   const archivedMessageData = await messageModel.getArchivedCount(account_id)
-
   const messageData = await messageModel.getMessagesByAccountId(account_id)
   const archivedCount = archivedMessageData[0].message_archived
   const messageList = await utilities.getMessages(messageData)
@@ -389,7 +342,6 @@ async function sendNewMessage(req, res) {
   // Populate the messages with the correct names that the 
   const account_firstname = res.locals.accountData.account_firstname
   const account_lastname = res.locals.accountData.account_lastname
-
   const account_id = parseInt(res.locals.accountData.account_id)
 
   const { 
@@ -401,8 +353,6 @@ async function sendNewMessage(req, res) {
   const archivedMessageData = await messageModel.getArchivedCount(account_id)
   const archivedCount = archivedMessageData[0].message_archived
 
-  
-
   // (account_id here is being used as the message_from in the query)
   const messageResult = await messageModel.addNewMessage(
     account_id,
@@ -411,10 +361,8 @@ async function sendNewMessage(req, res) {
     message_to,
   )
 
-  // const messageList = await utilities.getMessages(account_id)
   const messageData = await messageModel.getMessagesByAccountId(account_id)
   const messageList = await utilities.getMessages(messageData)
-
 
   if (messageResult) {
     req.flash(
@@ -428,12 +376,10 @@ async function sendNewMessage(req, res) {
       errors: null,
       messageList,
     })
-    // return res.redirect("/account/inbox")
   } else {
     console.log("This did not work")
     req.flash("notice", "Sorry, we were not able to send the message at this time.")
     res.status(501).render("messages/newMessage", {
-      // Will need to add the select list later here
       title: "Create a New Message",
       nav,
       errors: null,
@@ -442,14 +388,6 @@ async function sendNewMessage(req, res) {
 }
 
 
-
-// *********************************************************************
-
-
-
-
-
-  
   module.exports = { 
     buildInboxView,
     buildCreateNewMessageView,

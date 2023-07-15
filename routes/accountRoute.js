@@ -7,7 +7,6 @@ const express = require("express")
 const router = new express.Router() 
 const accountController = require("../controllers/accountController")
 const messageController = require("../controllers/messageController")
-
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
 const messageValidate = require('../utilities/message-validation')
@@ -44,7 +43,6 @@ router.get(
   utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement)
 )
-
 
 
 // Unit 4 
@@ -110,134 +108,6 @@ router.get(
   "/logout",
   utilities.handleErrors(accountController.logoutAccount)
 )
-
-
-
-
-
-/* ***********************
- * Inbox View
- * Final Project - Messages
- *************************/
-// router.get(
-//   "/inbox",
-//   utilities.checkLogin,
-//   utilities.handleErrors(messageController.buildInboxView)
-// )
-
-
-
-// /* ***********************
-//  * Archived Messages View
-//  * Final Project - Messages
-//  *************************/
-// router.get(
-//   "/archivedMessages",
-//   utilities.checkLogin,
-//   utilities.handleErrors(accountController.buildArchivedMessagesView)
-// )
-
-
-// /* ***********************
-//  * New Messages View
-//  * Final Project - Messages
-//  *************************/
-// router.get(
-//   "/newMessage",
-//   utilities.checkLogin,
-//   utilities.handleErrors(accountController.buildCreateNewMessageView)
-// )
-
-// /* ***********************
-//  * Post a new message and deliver view
-//  * Final Project - Messages
-//  *************************/
-// router.post(
-//   "/newMessage",
-//   messageValidate.messagingRules(),
-//   messageValidate.checkMessageData,
-//   utilities.handleErrors(accountController.sendNewMessage)
-// )
-
-
-// /* ***********************
-//  * Deliver a message view by Message ID
-//  * Final Project - Messages
-//  *************************/
-// router.get(
-//   "/inbox/:messageId",
-//   utilities.checkLogin,
-//   utilities.handleErrors(accountController.buildMessageByIdView)
-// )
-
-
-
-
-// /* *************************************************
-
-// /* ***********************
-//  * Reply to a message
-//  * Final Project - Messages
-//  *************************/
-// router.get(
-//   "/replyMessage/:messageId",
-//   utilities.checkLogin,
-//   utilities.handleErrors(accountController.buildReplyMessageView)
-// )
-// router.post(
-//   "/replyMessage",
-//   messageValidate.messagingRules(),
-//   messageValidate.checkReplyMessageData,
-//   utilities.handleErrors(accountController.replyToMessage)
-// )
-
-// // router.post(
-// //   "/newMessage/:messageFrom",
-// //   utilities.handleErrors(accountController.sendNewMessage)
-// // )
-
-// /* *************************************************
-
-
-// /* ***********************
-//  * Mark a Message as Read
-//  * Final Project - Messages
-//  *************************/
-// router.post(
-//   "/inbox/markAsRead/:messageId",
-//   utilities.handleErrors(accountController.markAsRead)
-// )
-
-// /* ***********************
-//  * Archive a message
-//  * Final Project - Messages
-//  *************************/
-// router.post(
-//   "/inbox/archive/:messageId",
-//   utilities.handleErrors(accountController.archiveMessage)
-// )
-
-// /* ***********************
-//  * Delete a message
-//  * Final Project - Messages
-//  *************************/
-// router.post(
-//   "/inbox/delete/:messageId",
-//   utilities.handleErrors(accountController.deleteMessage)
-// )
-
-
-
-// /* ***********************
-//  * Get inventory for AJAX Route
-//  * Unit 5 Select inv item activity
-//  *************************/
-// // router.get(
-// //   "/getInventory/:classification_id",
-// //   regValidate.checkAccountAccess,
-// //   utilities.handleErrors(accountController.getMessageData)
-// // )
-
 
 
 module.exports = router;
