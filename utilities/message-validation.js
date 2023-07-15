@@ -87,6 +87,7 @@ validate.checkReplyMessageData = async (req, res, next) => {
         errors,
         title: `Reply to ${messageFromData.account_firstname} ${messageFromData.account_lastname} `,
         nav,
+        reply_subject,
         reply_body,
         message_id,
         account_email,

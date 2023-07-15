@@ -263,7 +263,8 @@ hr {
 
 /* Unit 4 Assignment */
 .notice {
-  color: red;
+  font-size: medium;
+  color: rgb(230, 20, 20);
   text-align: left;
   font-style: italic;
 }
